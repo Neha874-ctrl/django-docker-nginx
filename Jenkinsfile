@@ -3,6 +3,7 @@ pipeline {
   environment{
     DJANGO_SECRET_KEY = credentials('github-token')
     DB_PASSWORD = credentials('db-password')
+    DEBUG = 'False'
   }
   stages {
     stage('Clone App') {
@@ -12,7 +13,12 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'docker compose up -d --build'
+        sh '''
+        export DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+        export DB_PASSWORD=${DB_PASSWORD}
+        export DEBUG=${DEBUG}
+        docker compose up -d --build
+        '''
       }
     }
   }
