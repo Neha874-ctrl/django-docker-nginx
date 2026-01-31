@@ -2,6 +2,7 @@ pipeline {
   agent any
   environment{
     DJANGO_SECRET_KEY = credentials('github-token')
+    DB_PASSWORD = credentials('db-password')
   }
   stages {
     stage('Clone App') {
