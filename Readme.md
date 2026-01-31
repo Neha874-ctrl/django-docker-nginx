@@ -15,13 +15,4 @@ The project is designed for **production-style deployment** and can be automated
 - **Jenkins** (CI/CD)
 
 ---
-hlo there is a small change to test if the is starting automatically or not
-
-another change
-another one
-hlooooooooooooooooooo
-why not working
-
-still trying
-maybe working
-1
+first it worked but not now
