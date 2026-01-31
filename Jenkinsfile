@@ -1,19 +1,18 @@
 pipeline {
   agent any
+  environment{
+    DJANGO_SECRET_KEY = credentials('github-token')
+  }
   stages {
     stage('Clone App') {
       steps {
-        git branch: 'main', url: 'https://github.com/Neha874-ctrl/django-notes-app.git'
+        git branch: 'main', url:'https://github.com/Neha874-ctrl/django-notes-app.git'
       }
     }
     stage('Build') {
       steps {
-        withCredentials([string(credentialsId: 'github-token', variable: 'DJANGO_SECRET_KEY'),
-                         string(credentialsId: 'db-password', variable: 'DB_PASSWORD')]) {
-          sh 'docker compose up -d --build'
-        }
+        sh 'docker compose up -d --build'
       }
     }
   }
 }
-
