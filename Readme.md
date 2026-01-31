@@ -14,6 +14,4 @@ The project is designed for **production-style deployment** and can be automated
 - **Docker Compose** (Multi-container orchestration)
 - **Jenkins** (CI/CD)
 
----
-first it worked but not now
-..................................
+still the same error
