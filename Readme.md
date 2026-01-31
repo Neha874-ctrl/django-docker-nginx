@@ -1,3 +1,4 @@
+
 # django-docker-nginx
 
 ## 🚀 Project Overview
@@ -16,3 +17,4 @@ The project is designed for **production-style deployment** and can be automated
 
 still the same error
 now ig it will work
+added password security
