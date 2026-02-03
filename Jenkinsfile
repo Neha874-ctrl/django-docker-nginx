@@ -16,22 +16,15 @@ pipeline {
       }
     }
    stage('Security Scan') {
-     steps {
-       sh '''
-         echo "🔍 Scanning Docker images..."
+  steps {
+    sh '''
+      echo "🔍 Scanning Docker images..."
+      trivy image neha874/django-notes-app || true
+      trivy image neha874/django-nginx || true
+    '''
+  }
+}
 
-
-
-         docker run --rm \
-         -v /var/run/docker.sock:/var/run/docker.sock \
-         aquasec/trivy:latest image neha874/django-notes-app || true
-
-         docker run --rm \
-         -v /var/run/docker.sock:/var/run/docker.sock \
-         aquasec/trivy:latest image neha874/django-nginx || true
-         '''
-     }
-    }
 
   }
 }
