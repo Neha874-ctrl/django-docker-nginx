@@ -20,7 +20,7 @@ pipeline {
        sh '''
          echo "🔍 Scanning Docker images..."
 
-// test auto trigger
+// test auto 
 
          docker run --rm \
          -v /var/run/docker.sock:/var/run/docker.sock \
