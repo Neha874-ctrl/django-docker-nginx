@@ -27,4 +27,18 @@ pipeline {
 
 
   }
+  post {
+    always {
+      emailext(
+        to: 'nehasharma9d16@gmail.com',
+        subject: "Build ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+        body: """
+        Job: ${env.JOB_NAME}
+        Build Number: ${env.BUILD_NUMBER}
+        Status: ${currentBuild.currentResult}
+        URL: ${env.BUILD_URL}
+        """
+      )
+    }
+  }
 }
