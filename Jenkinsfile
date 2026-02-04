@@ -18,7 +18,7 @@ pipeline {
    stage('Security Scan') {
   steps {
     sh '''
-      echo "🔍Scanning Docker images why not working..."
+      echo "🔍Scanning Docker images..."
       trivy image neha874/django-notes-app || true
       trivy image neha874/django-nginx || true
     '''
