@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     gcc \
     default-libmysqlclient-dev \
     pkg-config \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -17,7 +18,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# collect static AFTER mysqlclient works
-RUN python manage.py collectstatic --noinput
+# ❌ DO NOT collectstatic here (DB not available)
 
-CMD ["gunicorn", "notesapp.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD sh -c "python manage.py collectstatic --noinput && gunicorn notesapp.wsgi:application --bind 0.0.0.0:8000"
