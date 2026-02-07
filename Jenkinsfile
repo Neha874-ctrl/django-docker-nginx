@@ -26,6 +26,17 @@ pipeline {
 
   }
 }
+    stage('Cleanup Docker') {
+  steps {
+    sh '''
+      echo "🧹 Cleaning unused Docker resources..."
+      docker container prune -f || true
+      docker image prune -f || true
+      docker volume prune -f || true
+    '''
+  }
+}
+
 
 
   }
@@ -54,6 +65,10 @@ pipeline {
       '''
     }
   }
+   cleanup {
+  cleanWs()
+}
+
 }
 
 
