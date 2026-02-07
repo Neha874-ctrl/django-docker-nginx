@@ -3,6 +3,7 @@ pipeline {
   environment{
     DJANGO_SECRET_KEY = credentials('github-token')
     DB_PASSWORD = credentials('db-password')
+    IMAGE_TAG = "${BUILD_NUMBER}"
   }
   stages {
     stage('Clone App') {
