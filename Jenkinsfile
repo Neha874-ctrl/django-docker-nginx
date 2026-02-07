@@ -29,7 +29,7 @@ pipeline {
   }
   post {
   always {
-    withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_URL')]) {
+    withCredentials([string(credentialsId: 'Discord-Webhook', variable: 'DISCORD_URL')]) {
       sh """
       curl -H "Content-Type: application/json" \
       -d '{
