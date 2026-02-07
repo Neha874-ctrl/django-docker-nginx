@@ -28,17 +28,16 @@ pipeline {
 
   }
   post {
-    always {
-      emailext(
-        to: 'nehasharma9d16@gmail.com',
-        subject: "Build ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-        body: """
-        Job: ${env.JOB_NAME}
-        Build Number: ${env.BUILD_NUMBER}
-        Status: ${currentBuild.currentResult}
-        URL: ${env.BUILD_URL}
-        """
-      )
+  always {
+    withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_URL')]) {
+      sh """
+      curl -H "Content-Type: application/json" \
+      -d '{
+        "content": "🚀 **Jenkins Build Notification**\\n📦 Job: ${env.JOB_NAME}\\n🔢 Build: #${env.BUILD_NUMBER}\\n📊 Status: ${currentBuild.currentResult}\\n🔗 ${env.BUILD_URL}"
+      }' $DISCORD_URL
+      """
     }
   }
+}
+
 }
