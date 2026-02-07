@@ -22,6 +22,8 @@ pipeline {
       trivy image neha874/django-notes-app || true
       trivy image neha874/django-nginx || true
     '''
+    sh 'exit 1'
+
   }
 }
 
@@ -37,6 +39,7 @@ pipeline {
         }' \
         $DISCORD_URL
       '''
+      
     }
   }
 
