@@ -27,17 +27,31 @@ pipeline {
 
 
   }
-  post {
-  always {
-    withCredentials([string(credentialsId: 'Discord-Webhook', variable: 'DISCORD_URL')]) {
-      sh """
-      curl -H "Content-Type: application/json" \
-      -d '{
-        "content": "🚀 **Jenkins Build Notification**\\n📦 Job: ${env.JOB_NAME}\\n🔢 Build: #${env.BUILD_NUMBER}\\n📊 Status: ${currentBuild.currentResult}\\n🔗 ${env.BUILD_URL}"
-      }' $DISCORD_URL
-      """
+ post {
+  success {
+    withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_URL')]) {
+      sh '''
+        curl -H "Content-Type: application/json" \
+        -d '{
+          "content": "✅ **BUILD SUCCESS** 🎉\n📦 Job: '${JOB_NAME}'\n🔢 Build: #'${BUILD_NUMBER}'\n🔗 '${BUILD_URL}'"
+        }' \
+        $DISCORD_URL
+      '''
+    }
+  }
+
+  failure {
+    withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_URL')]) {
+      sh '''
+        curl -H "Content-Type: application/json" \
+        -d '{
+          "content": "🚨 **BUILD FAILED** ❌\n📦 Job: '${JOB_NAME}'\n🔢 Build: #'${BUILD_NUMBER}'\n🔗 '${BUILD_URL}'"
+        }' \
+        $DISCORD_URL
+      '''
     }
   }
 }
+
 
 }
